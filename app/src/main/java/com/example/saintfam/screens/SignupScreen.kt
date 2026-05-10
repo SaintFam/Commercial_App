@@ -30,11 +30,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.example.saintfam.viewmodel.AuthViewModel
 
 @Composable
-fun SignUpScreen(modifier: Modifier = Modifier ,authViewModel: AuthViewModel = viewModel()){
-    var context = LocalContext.current
+fun SignUpScreen(modifier: Modifier = Modifier,navController: NavHostController,authViewModel: AuthViewModel = viewModel()){
+
     var email by remember {
         mutableStateOf("")
     }
@@ -44,6 +45,10 @@ fun SignUpScreen(modifier: Modifier = Modifier ,authViewModel: AuthViewModel = v
     var password by remember {
         mutableStateOf("")
     }
+    var isLoading by remember {
+        mutableStateOf(false)
+    }
+    var context = LocalContext.current
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -90,12 +95,20 @@ fun SignUpScreen(modifier: Modifier = Modifier ,authViewModel: AuthViewModel = v
             modifier = Modifier.fillMaxWidth(),
             visualTransformation = PasswordVisualTransformation())
         Spacer(modifier = Modifier.height(20.dp))
-        Button(onClick = {authViewModel.signup(email,userName,password){success,errorMessage -> if(success){
-
+        Button(onClick = {
+            isLoading = true;
+            authViewModel.signup(email,userName,password){success,errorMessage -> if(success){
+                isLoading = false
+           navController.navigate("home"){
+               popUpTo("auth"){inclusive = true}
+           }
         }else{
+            isLoading = false
          AppUtils.showToast(context,errorMessage?:"Something Went Wrong")
-        } } } , modifier = Modifier.fillMaxWidth()) {
-            Text(text = "Sign Up", fontSize = 22.sp)
+        } } } ,
+            enabled = !isLoading
+            , modifier = Modifier.fillMaxWidth()) {
+            Text(text = if(isLoading)"creating Account" else "Sign Up", fontSize = 22.sp)
         }
 
     }
