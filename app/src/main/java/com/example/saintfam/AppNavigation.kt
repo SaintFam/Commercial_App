@@ -4,9 +4,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.saintfam.pages.CategoryProductPage
 import com.example.saintfam.screens.AuthScreen
 import com.example.saintfam.screens.HomeScreen
 import com.example.saintfam.screens.LoginScreen
@@ -19,6 +21,7 @@ fun AppNavigation(modifier: Modifier = Modifier){
       val isLoggedIn = Firebase.auth.currentUser != null
       val FirstPage = if (isLoggedIn) "home" else "auth"
     val navController = rememberNavController()
+    GlobalNavigation.navController = navController
     NavHost(navController = navController , startDestination = FirstPage ,modifier = Modifier) {
         composable("auth"){
             AuthScreen(modifier = Modifier
@@ -40,5 +43,15 @@ fun AppNavigation(modifier: Modifier = Modifier){
                 .fillMaxSize()
                 .statusBarsPadding(),navController)
         }
+        composable(route = "category-product/{categoryId}"){
+            var categoryId = it.arguments?.getString("categoryId")
+            CategoryProductPage(modifier = Modifier
+                .fillMaxSize()
+                .statusBarsPadding(),categoryId?:"")
+        }
     }
+}
+
+object  GlobalNavigation  {
+    lateinit var navController: NavHostController
 }
