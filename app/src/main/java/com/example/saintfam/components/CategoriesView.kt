@@ -48,7 +48,7 @@ fun CategoriesView(modifier: Modifier = Modifier) {
                         docs.toObject(CategoryModel::class.java)
                     }
                     categoryList.value = resultList
-                }
+                }   
             }
     }
    LazyRow(horizontalArrangement = Arrangement.spacedBy(30.dp)) { items(categoryList.value ) { item ->
