@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation("com.tbuonomo:dotsindicator:5.1.0")
     implementation(platform("androidx.compose:compose-bom:2025.04.01"))
     implementation("androidx.compose.foundation:foundation")
     implementation("io.coil-kt.coil3:coil-compose:3.4.0")

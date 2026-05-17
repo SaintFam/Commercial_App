@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.saintfam.pages.CategoryProductPage
+import com.example.saintfam.pages.ProductDetailsPage
 import com.example.saintfam.screens.AuthScreen
 import com.example.saintfam.screens.HomeScreen
 import com.example.saintfam.screens.LoginScreen
@@ -48,6 +49,12 @@ fun AppNavigation(modifier: Modifier = Modifier){
             CategoryProductPage(modifier = Modifier
                 .fillMaxSize()
                 .statusBarsPadding(),categoryId?:"")
+        }
+        composable(route = "productDetailsPage/{productId}"){
+            var productId = it.arguments?.getString("productId")
+            ProductDetailsPage(modifier = Modifier
+                .fillMaxSize()
+                .statusBarsPadding(),productId?:"")
         }
     }
 }
