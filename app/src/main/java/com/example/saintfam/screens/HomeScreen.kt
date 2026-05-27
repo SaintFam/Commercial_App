@@ -19,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.saintfam.pages.CartPage
@@ -37,7 +38,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavHostController){
 
 
     )
-    var selectedIndex  by remember {
+    var selectedIndex  by rememberSaveable() {
         mutableStateOf(0)
     }
 

@@ -1,6 +1,6 @@
 package com.example.saintfam.screens
 
-import AppUtils
+import com.example.saintfam.AppUtils
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

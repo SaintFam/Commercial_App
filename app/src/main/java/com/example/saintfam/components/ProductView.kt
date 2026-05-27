@@ -1,6 +1,5 @@
 package com.example.saintfam.components
 
-import android.graphics.drawable.Icon
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -36,7 +35,7 @@ import com.example.saintfam.models.ProductModel
 fun ProductView(modifier: Modifier = Modifier, product: ProductModel){
     Card(modifier = modifier.padding(8.dp)
         .clickable{
-            GlobalNavigation.navController.navigate("productDetailsPage/${product.id}")
+            GlobalNavigation.navController.navigate("productdetailsscreen/${product.id}")
 
         },
         shape = RoundedCornerShape(12.dp),
@@ -62,7 +61,9 @@ fun ProductView(modifier: Modifier = Modifier, product: ProductModel){
                 Text( text = product.price +"Rwf",
                     fontSize = 14.sp,)
                 Spacer(modifier = Modifier.weight(1f))
-                IconButton(onClick = {}) {
+                IconButton(onClick = {
+                    GlobalNavigation.navController.navigate("productdetailsscreen/${product.id}")
+                }) {
                   Icon(imageVector = Icons.Default.ShoppingCart,
                       contentDescription = "Buy Now")
                 }

@@ -8,12 +8,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.saintfam.pages.CategoryProductPage
-import com.example.saintfam.pages.ProductDetailsPage
-import com.example.saintfam.screens.AuthScreen
-import com.example.saintfam.screens.HomeScreen
-import com.example.saintfam.screens.LoginScreen
-import com.example.saintfam.screens.SignUpScreen
+import com.example.saintfam.com.example.saintfam.screens.ProductDetailsScreen
+import com.example.saintfam.pages.*
+import com.example.saintfam.screens.*
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 
@@ -23,36 +20,30 @@ fun AppNavigation(modifier: Modifier = Modifier){
       val FirstPage = if (isLoggedIn) "home" else "auth"
     val navController = rememberNavController()
     GlobalNavigation.navController = navController
-    NavHost(navController = navController , startDestination = FirstPage ,modifier = Modifier) {
+    NavHost(navController = navController , startDestination = FirstPage ,modifier = modifier) {
         composable("auth"){
-            AuthScreen(modifier = Modifier
-                .fillMaxSize()
-                .statusBarsPadding(),navController)
+            AuthScreen(navController = navController)
         }
         composable("login"){
-            LoginScreen(modifier = Modifier
-                .fillMaxSize()
-                .statusBarsPadding(),navController)
+            LoginScreen(navController = navController)
         }
         composable("signup"){
-            SignUpScreen(modifier = Modifier
-                .fillMaxSize()
-                .statusBarsPadding(),navController)
+            SignUpScreen(navController = navController)
         }
         composable(route = "home"){
-            HomeScreen(modifier = Modifier
-                .fillMaxSize()
-                .statusBarsPadding(),navController)
+            HomeScreen(navController = navController)
         }
         composable(route = "category-product/{categoryId}"){
-            var categoryId = it.arguments?.getString("categoryId")
-            CategoryProductPage(modifier = Modifier
-                .fillMaxSize()
-                .statusBarsPadding(),categoryId?:"")
+            val catId = it.arguments?.getString("categoryId")
+            CategoryProductPage(categoryId = catId?:"")
         }
-        composable(route = "productDetailsPage/{productId}"){
+
+        composable(route = "checkout"){
+            CheckOut()
+        }
+        composable(route = "productdetailsscreen/{productId}"){
             var productId = it.arguments?.getString("productId")
-            ProductDetailsPage(modifier = Modifier
+            ProductDetailsScreen(modifier = Modifier
                 .fillMaxSize()
                 .statusBarsPadding(),productId?:"")
         }
